@@ -1,0 +1,187 @@
+html,
+body {
+  margin: 0;
+  background: #101010;
+  font-family: var(--font-family-override, "Open Sans", "Segoe UI", sans-serif);
+}
+
+.container {
+  display: grid;
+  margin: 10px;
+  height: calc(100vh - 20px);
+  background: #101010;
+  gap: 10px;
+  grid-template-columns: 8fr 3fr 1.5fr;
+  grid-template-rows: 2fr 3fr 2fr 2fr;
+  grid-template-areas:
+    "timer    projekt   uhr"
+    "timer    aux       aux"
+    "timer    aktuelles aktuelles"
+    "timer    naechstes naechstes";
+}
+
+.timer {
+  grid-area: timer;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.projekt {
+  grid-area: projekt;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.uhr {
+  grid-area: uhr;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.aux-timer {
+  grid-area: aux;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.aktuelles-event {
+  grid-area: aktuelles;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.naechstes-event {
+  grid-area: naechstes;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.timer {
+  grid-area: timer;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+  border-radius: 8px;
+}
+
+.timer__label {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 0.875em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.25);
+  margin-top: 1px;
+}
+
+.timer__time {
+  font-size: 1.5em;
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 70vh;
+}
+
+.projekt {
+  grid-area: projekt;
+  color: rgba(255, 255, 255, 0.6);
+  background: #101010;
+  font-size: 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 5px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uhr {
+  grid-area: uhr;
+  background: rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+}
+
+.uhr__label {
+  font-size: 0.875em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.25);
+  align-self: flex-start;
+  margin-top: 1px;
+}
+
+.uhr__time {
+  font-size: 1.5em;
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.aux-timer {
+  grid-area: aux;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 5px;
+  border-radius: 8px;
+}
+
+.aux__label {
+  align-self: flex-start;
+  font-size: 0.875em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.aux__time {
+  font-size: 1.5em;
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 15vh;
+}
+
+.aktuelles-event {
+  grid-area: aktuelles;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.naechstes-event {
+  grid-area: naechstes;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.demnaechst {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+}
+
+.demnaechst__label {
+  font-size: 0.875em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  align-self: flex-start;
+}
+
+.demnaechst__text {
+  width: 100%;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1;
+  font-size: 20px;
+}
