@@ -12,27 +12,37 @@
     <div class="container">
         <div class="timer">
             <div class="timer__label">Timer</div>
-            <div class="timer__time stage_time_aktuell" id="timer">--:--:--</div>
+            <div class="timer__type" id="timerType"></div>
+            <div class="fullscreen-btn">⤢</div>
+            <div class="timer__time stage_time_aktuell ontime-timer" id="timer">--:--:--</div>
+            <div class="timer__progress">
+                <div class="timer__progress-bar"></div>
+            </div>
         </div>
-        <div class="projekt" id="projekttitel">--</div>
+        <div class="projekt ontime-project" id="projekttitel">--</div>
         <div class="uhr">
             <div class="uhr__label">Uhrzeit</div>
-            <div class="uhr__time" id="clock">--:--:--</div>
+            <div class="uhr__time ontime-clock" id="clock">--:--:--</div>
         </div>
         <div class="aux-timer">
             <div class="aux__label">Aux-Timer</div>
-            <div class="aux__time">--:--:--</div>
+            <div class="aux__time ontime-auxtimer1" id="aux">--:--:--</div>
         </div>
         <div class="aktuelles-event demnaechst">
             <div class="demnaechst__label">jetzt</div>
-            <div class="demnaechst__text demnaechsttext1">--</div>
+            <div class="demnaechst__text demnaechsttext1 ontime-eventNow" id="now">--</div>
         </div>
         <div class="naechstes-event demnaechst">
             <div class="demnaechst__label">als nächstes</div>
-            <div class="demnaechst__text demnaechsttext2">--</div>
+            <div class="demnaechst__text demnaechsttext2 ontime-eventNext" id="next">--</div>
         </div>
+        <div class="event-detail-view">
+            <button id="closeDetailBtn" class="modal-close">⤢</button>
+            <div class="current-event" id="eventDetail"></div>
+            <div class="next-events"   id="eventList"></div>
+          </div>
+            
     </div>
+    <script src="app.js"></script>
 </body>
-<script src="app.js"></script>
-
 </html>

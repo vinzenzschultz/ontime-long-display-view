@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
   margin: 0;
   background: #101010;
   font-family: var(--font-family-override, "Open Sans", "Segoe UI", sans-serif);
@@ -14,52 +13,25 @@ body {
   grid-template-columns: 8fr 3fr 1.5fr;
   grid-template-rows: 2fr 3fr 2fr 2fr;
   grid-template-areas:
-    "timer    projekt   uhr"
-    "timer    aux       aux"
-    "timer    aktuelles aktuelles"
-    "timer    naechstes naechstes";
+    "timer projekt uhr"
+    "timer aux aux"
+    "timer aktuelles aktuelles"
+    "timer naechstes naechstes";
+  transition: all 0.5s ease;
 }
 
 .timer {
   grid-area: timer;
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.projekt {
-  grid-area: projekt;
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.uhr {
-  grid-area: uhr;
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.aux-timer {
-  grid-area: aux;
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.aktuelles-event {
-  grid-area: aktuelles;
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.naechstes-event {
-  grid-area: naechstes;
-  background: rgba(255, 255, 255, 0.07);
-}
-
-.timer {
-  grid-area: timer;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 10px;
+  padding: 10px;
   border-radius: 8px;
+  transition: all 500ms ease;
 }
 
 .timer__label {
@@ -68,37 +40,92 @@ body {
   left: 20px;
   font-size: 0.875em;
   font-weight: bold;
-  color: rgba(255, 255, 255, 0.25);
-  margin-top: 1px;
+  color: rgba(255,255,255,0.25);
+}
+
+.timer__type {
+  position: absolute;
+  top: 20px;
+  left: 80px;
+  font-size: 0.875em;
+  color: rgba(255,255,255,0.5);
+}
+
+.fullscreen-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 2.5em;
+  height: 2.5em;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: background 300ms, transform 300ms;
+}
+.fullscreen-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
 }
 
 .timer__time {
-  font-size: 1.5em;
-  font-variant-numeric: tabular-nums;
-  margin-top: 1px;
-  color: rgba(255, 255, 255, 0.45);
   font-size: 70vh;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.45);
+  transition: color 0.5s;
+}
+
+.timer__time.warning { color: #FFD600; }
+.timer__time.overtime { color: #F44336; }
+
+.timer__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(255,255,255,0.1);
+}
+.timer__progress-bar {
+  width: 0;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  transition: width 0.2s ease;
+}
+
+/* Fullscreen: nur .timer anzeigen */
+.container.fullscreen > *:not(.timer) {
+  opacity: 0;
+  pointer-events: none;
+  transition: width 2000ms ease;
+}
+
+.container.fullscreen .timer {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
 }
 
 .projekt {
   grid-area: projekt;
-  color: rgba(255, 255, 255, 0.6);
-  background: #101010;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.6);
   font-size: 25px;
   border-radius: 8px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   padding: 0 5px;
-  min-width: 0;
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .uhr {
   grid-area: uhr;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255,255,255,0.07);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -106,82 +133,262 @@ body {
   border-radius: 8px;
   padding: 5px 10px;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: background 300ms, transform 300ms;
 }
 
-.uhr__label {
+  .uhr__label {
   font-size: 0.875em;
   font-weight: bold;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255,255,255,0.25);
   align-self: flex-start;
-  margin-top: 1px;
 }
-
 .uhr__time {
   font-size: 1.5em;
   font-variant-numeric: tabular-nums;
-  margin-top: 1px;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255,255,255,0.45);
+}
+
+/* Fullscreen: nur .uhr anzeigen */
+.container.fullscreenuhr > *:not(.uhr) {
+  opacity: 0;
+  pointer-events: none;
+  transition: width 2000ms ease;
+}
+
+.container.fullscreenuhr .uhr {
+  
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  transition: all 2000ms;
+}
+
+.container.fullscreenuhr .uhr__time {
+  font-size: 70vh;
 }
 
 .aux-timer {
   grid-area: aux;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5px 5px;
+  padding: 5px;
   border-radius: 8px;
 }
-
 .aux__label {
   align-self: flex-start;
   font-size: 0.875em;
   font-weight: bold;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255,255,255,0.25);
 }
-
 .aux__time {
-  font-size: 1.5em;
-  font-variant-numeric: tabular-nums;
-  margin-top: 1px;
-  color: rgba(255, 255, 255, 0.45);
   font-size: 15vh;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255,255,255,0.45);
 }
 
 .aktuelles-event {
   grid-area: aktuelles;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.6);
 }
-
 .naechstes-event {
   grid-area: naechstes;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.6);
 }
-
 .demnaechst {
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255,255,255,0.07);
   border-radius: 8px;
 }
-
 .demnaechst__label {
   font-size: 0.875em;
   font-weight: bold;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255,255,255,0.25);
   align-self: flex-start;
 }
-
 .demnaechst__text {
-  width: 100%;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1;
   font-size: 20px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1;
+}
+
+
+
+
+
+
+
+
+/* AUX TIMER SWAP */
+/* Wenn container.swapaux gesetzt, tauschen sich Haupt- und Aux-Timer */
+
+/* Swap-State: Timer und Aux tauschen Plätze */
+.container.swapaux {
+  display: grid;           /* Stelle sicher, dass Grid aktiv bleibt */
+  grid-template-areas:
+    "aux    projekt uhr"
+    "aux    timer   timer"
+    "aux    aktuelles aktuelles"
+    "aux    naechstes naechstes";
+}
+/* Größenanpassung nach Swap */
+.container.swapaux .timer__time {
+  font-size: 20vh;         /* Haupt-Timer jetzt klein */
+}
+.container.swapaux .aux__time {
+  font-size: 70vh;         /* Aux-Timer groß */
+  opacity: 1;
+}
+
+
+
+/* EVENT DETAIL VIEW */
+/* Bei container.fullevent alles ausblenden */
+/* Detail-View über das komplette Grid positionieren */
+.event-detail-view {
+  display: none;           /* jetzt wirklich versteckt */
+  position: absolute;
+  top:    0;
+  left:   0;
+  width:  100%;
+  height: 100%;
+  z-index: 1000;
+  background:  #101010;
+  padding:     1rem;
+  box-sizing:  border-box;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* nur wenn .fullevent gesetzt ist, einblenden */
+.container.fullevent .event-detail-view {
+  display: grid;
+}
+
+/* Beim Toggle nur diese View anzeigen */
+.container.fullevent > *:not(.event-detail-view) {
+  display: none;
+}
+.container.fullevent .event-detail-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+
+/* Detail-View: linke Spalte (Aktuelles Event) */
+.event-detail-view .current-event {
+  padding: 1rem;
+  background: rgba(255,255,255,0.05);
+  border-right: 1px solid rgba(255,255,255,0.1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.event-detail-view .current-event h2 {
+  margin-top: 0;
+  font-size: 1.25em;
+  color: #fff;
+}
+.event-detail-view .current-event p {
+  flex: 1;
+  margin: 0.5em 0 0;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Detail-View: rechte Spalte (Nächste Events) */
+.event-detail-view .next-events {
+  padding: 1rem;
+  background: rgba(255,255,255,0.05);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.event-detail-view .next-events h2 {
+  margin-top: 0;
+  font-size: 1.25em;
+  color: #fff;
+}
+.event-detail-view .next-events ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5em 0 0;
+}
+.event-detail-view .next-events li {
+  margin-bottom: 0.5em;
+  color: rgba(255,255,255,0.8);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.25em;
+}
+.event-detail-view .modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 2.5em;
+  height: 2.5em;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: background 300ms, transform 300ms;
+}
+
+.event-detail-view .modal-close:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+}
+.event-card, .event-list-card {
+  padding: 1rem;
+  border-radius: 8px;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.event-card h2, .event-list-card h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+.field {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+.field-label {
+  font-weight: bold;
+}
+.field-value {
+  font-family: monospace;
+}
+
+/* Überschrift in Detail-View */
+.detail-header {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #fff;
+}
+/* Event-Name als farbige Kugel/Hintergrund */
+.event-title {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  margin-left: 0.5em;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+}
+/* In der Detail-Ansicht sind alle Labels und Werte weiß */
+.event-detail-view .field-label,
+.event-detail-view .field-value {
+  color: #fff !important;
 }
